@@ -17,9 +17,9 @@
         "config"
     ],
     "checkver": {
-        "github": "https://github.com/arch1t3cht/Aegisub",
-        "jsonpath": "$.tag_name",
-        "regex": "([\\w.-]+)"
+        "url": "https://api.github.com/repositories/509526332/tags",
+        "jsonpath": "$..name",
+        "regex": "(feature_[\\d.\\-r]+)"
     },
     "autoupdate": {
         "url": "https://github.com/arch1t3cht/Aegisub/releases/download/$version/Windows.MSVC.Release.-.portable.zip"
