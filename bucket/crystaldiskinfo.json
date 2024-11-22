@@ -1,0 +1,56 @@
+{
+    "version": "9.5.0",
+    "description": "A HDD/SSD utility software which supports a part of USB, RAID and NVMe (Aoi and Shizuku Edition)",
+    "homepage": "https://crystalmark.info/en/software/crystaldiskinfo/",
+    "license": "MIT",
+    "url": [
+        "https://sourceforge.net/projects/crystaldiskinfo/files/9.5.0/CrystalDiskInfo9_5_0Aoi.zip",
+        "https://sourceforge.net/projects/crystaldiskinfo/files/9.5.0/CrystalDiskInfo9_5_0Shizuku.zip"
+    ],
+    "hash": [
+        "sha256:D323A35E0B010F72D4CBD2D4FFA911939EA92A6462C58686E4A902ADDE3B130A",
+        "sha256:6901A408E2FB4E9144AAED39C9A13D714D35AC9EDCFAB75F30682347E9488F3E"
+    ],
+    "pre_install": [
+        "if (!(Test-Path \"$persist_dir\\DiskInfo.ini\")) { New-Item \"$dir\\DiskInfo.ini\" | Out-Null }",
+        "# Manually persist AMD RAID plugins (AMD_RC2t7x64.dll, AMD_RC2t7x86.dll)",
+        "if (Test-Path \"$persist_dir\\AMD_RC2t7*.dll\") { Copy-Item \"$persist_dir\\AMD_RC2t7*.dll\" \"$dir\\\" }"
+    ],
+    "pre_uninstall": "if (Test-Path \"$dir\\AMD_RC2t7*.dll\") { Copy-Item \"$dir\\AMD_RC2t7*.dll\" \"$persist_dir\\\" }",
+    "architecture": {
+        "64bit": {
+            "bin": [
+                ["DiskInfo64A.exe", "DiskInfo(Aoi)"],
+                ["DiskInfo64S.exe", "DiskInfo(Shizuku)"]
+            ],
+            "shortcuts": [
+                ["DiskInfo64A.exe", "CrystalDiskInfo(Aoi)"],
+                ["DiskInfo64S.exe", "CrystalDiskInfo(Shizuku)"]
+            ]
+        },
+        "32bit": {
+            "bin": [
+                ["DiskInfo32A.exe", "DiskInfo(Aoi)"],
+                ["DiskInfo32S.exe", "DiskInfo(Shizuku)"]
+            ],
+            "shortcuts": [
+                ["DiskInfo32A.exe", "CrystalDiskInfo(Aoi)"],
+                ["DiskInfo32S.exe", "CrystalDiskInfo(Shizuku)"]
+            ]
+        }
+    },
+    "persist": [
+        "Smart",
+        "DiskInfo.ini"
+    ],
+    "checkver": {
+        "sourceforge": "crystaldiskinfo",
+        "regex": "((\\d+\\.)(\\d+\\.)(\\d+))/CrystalDiskInfo.*(Aoi|Shizuku).zip"
+    },
+    "autoupdate": {
+        "url": [
+            "https://sourceforge.net/projects/crystaldiskinfo/files/$version/CrystalDiskInfo$underscoreVersionAoi.zip",
+            "https://sourceforge.net/projects/crystaldiskinfo/files/$version/CrystalDiskInfo$underscoreVersionShizuku.zip"
+        ]
+    }
+}
